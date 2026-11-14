@@ -1,0 +1,10 @@
+# Offline analysis + figures (reproducing the paper's numbers needs only these)
+matplotlib>=3.7
+numpy>=1.24
+pyyaml>=6.0
+
+# Re-running the pipeline additionally needs, outside pip:
+#   - Dafny 4.x + Z3            (set DAFNY=...)
+#   - the vericoding benchmark  (set BENCH=...)
+#   - a model backend           (Azure OpenAI / Ollama / Gemini via env, see README)
+#   - for cross-language runs: a `verus` binary (+ rustup) and a Lean 4 `elan` toolchain

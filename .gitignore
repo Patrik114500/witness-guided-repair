@@ -1,0 +1,20 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+# LaTeX build artefacts
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
+# local key files (never commit)
+*.key
+.azure_openai_key
+.gemini_key
+# unpacked snapshot
+results/dafny_results_snapshot.jsonl
+# scratch
+/tmp/
+*.tmp
