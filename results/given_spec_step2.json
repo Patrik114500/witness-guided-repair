@@ -1,0 +1,84 @@
+{
+ "note": "Specification given: tasks solved by the published pipeline and by step 2 of ours with the same model, five attempts per task, under the published acceptance rule of each language; every accept re-verified with the full specification lock (pipeline/plain_lock_check.py). Rows with in_total=false overlap another row and are not summed.",
+ "rows": [
+  {
+   "label": "DafnyBench proofs, gpt-4o, hard (116)",
+   "tasks": 116,
+   "published": 80,
+   "ours": 89,
+   "in_total": true
+  },
+  {
+   "label": "DafnyBench proofs, gpt-4o, all (177)",
+   "tasks": 177,
+   "published": 141,
+   "ours": 150,
+   "in_total": false
+  },
+  {
+   "label": "Dafny verina, gpt-5 (157)",
+   "tasks": 157,
+   "published": 120,
+   "ours": 123,
+   "in_total": true
+  },
+  {
+   "label": "Dafny verina, gpt-5-mini (157)",
+   "tasks": 157,
+   "published": 116,
+   "ours": 114,
+   "in_total": true
+  },
+  {
+   "label": "Dafny numpy, gpt-5 (58)",
+   "tasks": 58,
+   "published": 38,
+   "ours": 37,
+   "in_total": true
+  },
+  {
+   "label": "Dafny numpy, gpt-5-mini (58)",
+   "tasks": 58,
+   "published": 39,
+   "ours": 37,
+   "in_total": true
+  },
+  {
+   "label": "Lean numpy, gpt-5 (59)",
+   "tasks": 59,
+   "published": 27,
+   "ours": 30,
+   "in_total": true
+  },
+  {
+   "label": "Lean numpy, gpt-5-mini (59)",
+   "tasks": 59,
+   "published": 9,
+   "ours": 13,
+   "in_total": true
+  },
+  {
+   "label": "Verus numpy, gpt-5 (58)",
+   "tasks": 58,
+   "published": 11,
+   "ours": 15,
+   "in_total": true
+  },
+  {
+   "label": "Verus numpy, gpt-5-mini (58)",
+   "tasks": 58,
+   "published": 2,
+   "ours": 3,
+   "in_total": true
+  }
+ ],
+ "dafnybench_gpt4o_paired": {
+  "tasks": 116,
+  "only_ours": 12,
+  "only_published": 3
+ },
+ "cloverbench": {
+  "tasks": 62,
+  "runnable": 45
+ }
+}

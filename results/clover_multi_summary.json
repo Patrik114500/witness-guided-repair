@@ -1,0 +1,166 @@
+{
+ "gpt-4o": {
+  "clover": {
+   "runs": 3,
+   "acc": 22.666666666666668,
+   "correct": 21.333333333333332,
+   "not_shown": 1.3333333333333333,
+   "na": 0.0,
+   "correct_min": 18,
+   "correct_max": 24,
+   "errors": 0,
+   "records": [
+    62,
+    62,
+    62
+   ],
+   "calls": 337,
+   "majority": 22
+  },
+  "ours": {
+   "runs": 3,
+   "acc": 34.333333333333336,
+   "correct": 32.666666666666664,
+   "not_shown": 1.6666666666666667,
+   "na": 0.0,
+   "correct_min": 32,
+   "correct_max": 34,
+   "errors": 0,
+   "records": [
+    62,
+    62,
+    62
+   ],
+   "calls": 539,
+   "majority": 33
+  },
+  "paired": {
+   "ours_only": 11,
+   "clover_only": 0,
+   "p": 0.0009765625
+  }
+ },
+ "haiku-4-5": {
+  "clover": {
+   "runs": 3,
+   "acc": 34.0,
+   "correct": 33.0,
+   "not_shown": 1.0,
+   "na": 0.0,
+   "correct_min": 32,
+   "correct_max": 34,
+   "errors": 0,
+   "records": [
+    62,
+    62,
+    62
+   ],
+   "calls": 304,
+   "majority": 33
+  },
+  "ours": {
+   "runs": 3,
+   "acc": 37.666666666666664,
+   "correct": 36.666666666666664,
+   "not_shown": 1.0,
+   "na": 0.0,
+   "correct_min": 36,
+   "correct_max": 37,
+   "errors": 0,
+   "records": [
+    62,
+    62,
+    62
+   ],
+   "calls": 384,
+   "majority": 37
+  },
+  "paired": {
+   "ours_only": 4,
+   "clover_only": 0,
+   "p": 0.125
+  }
+ },
+ "sonnet-4-6": {
+  "clover": {
+   "runs": 3,
+   "acc": 40.666666666666664,
+   "correct": 38.0,
+   "not_shown": 2.6666666666666665,
+   "na": 0.0,
+   "correct_min": 37,
+   "correct_max": 39,
+   "errors": 0,
+   "records": [
+    62,
+    62,
+    62
+   ],
+   "calls": 292,
+   "majority": 38
+  },
+  "ours": {
+   "runs": 3,
+   "acc": 42.666666666666664,
+   "correct": 42.666666666666664,
+   "not_shown": 0.0,
+   "na": 0.0,
+   "correct_min": 42,
+   "correct_max": 43,
+   "errors": 0,
+   "records": [
+    62,
+    62,
+    62
+   ],
+   "calls": 306,
+   "majority": 43
+  },
+  "paired": {
+   "ours_only": 5,
+   "clover_only": 0,
+   "p": 0.0625
+  }
+ },
+ "gpt-5-mini": {
+  "clover": {
+   "runs": 3,
+   "acc": 34.333333333333336,
+   "correct": 33.0,
+   "not_shown": 1.3333333333333333,
+   "na": 0.0,
+   "correct_min": 31,
+   "correct_max": 35,
+   "errors": 0,
+   "records": [
+    62,
+    62,
+    62
+   ],
+   "calls": 348,
+   "majority": 36
+  },
+  "ours": {
+   "runs": 3,
+   "acc": 41.0,
+   "correct": 40.333333333333336,
+   "not_shown": 0.6666666666666666,
+   "na": 0.0,
+   "correct_min": 39,
+   "correct_max": 41,
+   "errors": 0,
+   "records": [
+    62,
+    62,
+    62
+   ],
+   "calls": 371,
+   "majority": 41
+  },
+  "paired": {
+   "ours_only": 6,
+   "clover_only": 1,
+   "p": 0.125
+  }
+ }
+}

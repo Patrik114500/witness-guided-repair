@@ -2,19 +2,21 @@ __pycache__/
 *.pyc
 *.pyo
 .DS_Store
-# LaTeX build artefacts
-paper/*.aux
-paper/*.log
-paper/*.out
-paper/*.bbl
-paper/*.blg
-paper/*.synctex.gz
-# local key files (never commit)
+.venv/
+venv/
+
+# key files must never be committed
 *.key
 .azure_openai_key
 .gemini_key
-# unpacked snapshot
-results/dafny_results_snapshot.jsonl
-# scratch
-/tmp/
+.env
+
+# runner variants written by pipeline/make_mbpp_m.py and pipeline/make_mbpp_fix.py
+pipeline/mbpp_repro_m.py
+pipeline/mbpp_boost_m.py
+pipeline/mbpp_boost_fix.py
+
+# optional variant of Fig. 2 (python figures/fig2_reliability.py all)
+figures/fig2_reliability_all.png
+
 *.tmp
