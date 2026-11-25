@@ -1,0 +1,291 @@
+{
+ "runs": {
+  "baseline@haiku-4-5": {
+   "records": 228,
+   "status": {
+    "accepted": 131,
+    "no-gt": 69,
+    "no-verify": 28
+   },
+   "calls": 610,
+   "tok_in": 724734,
+   "tok_out": 335748
+  },
+  "ours@haiku-4-5": {
+   "records": 159,
+   "status": {
+    "no-verify": 20,
+    "accepted": 139
+   },
+   "calls": 1555,
+   "tok_in": 716524,
+   "tok_out": 247633
+  },
+  "baseline@gpt-4o": {
+   "records": 228,
+   "status": {
+    "no-verify": 59,
+    "accepted": 100,
+    "no-gt": 69
+   },
+   "calls": 932,
+   "tok_in": 1101407,
+   "tok_out": 580076
+  },
+  "ours@gpt-4o": {
+   "records": 159,
+   "status": {
+    "no-verify": 37,
+    "accepted": 122
+   },
+   "calls": 1803,
+   "tok_in": 759732,
+   "tok_out": 199838
+  },
+  "baseline@sonnet-4-6": {
+   "records": 228,
+   "status": {
+    "accepted": 147,
+    "no-gt": 69,
+    "no-verify": 12
+   },
+   "calls": 464,
+   "tok_in": 546879,
+   "tok_out": 307970
+  },
+  "ours@sonnet-4-6": {
+   "records": 159,
+   "status": {
+    "accepted": 153,
+    "no-verify": 6
+   },
+   "calls": 1220,
+   "tok_in": 528550,
+   "tok_out": 213873
+  },
+  "baseline@gpt-5-mini": {
+   "records": 228,
+   "status": {
+    "accepted": 123,
+    "no-gt": 69,
+    "no-verify": 36
+   },
+   "calls": 778,
+   "tok_in": 920250,
+   "tok_out": 458096
+  },
+  "ours@gpt-5-mini": {
+   "records": 159,
+   "status": {
+    "accepted": 134,
+    "no-verify": 25
+   },
+   "calls": 1628,
+   "tok_in": 789724,
+   "tok_out": 380724
+  }
+ },
+ "baseline@haiku-4-5": {
+  "records": 228,
+  "accepted_records": 131,
+  "strict": 131,
+  "bypass": 0,
+  "accepted": 131,
+  "proof": {
+   "correct": 92,
+   "not-shown": 31,
+   "interface": 8
+  },
+  "tests_on_valid": {
+   "pass": 52,
+   "norun": 6,
+   "fail": 1
+  },
+  "n_test_valid": 59,
+  "contract_context": 1,
+  "mapped": {
+   "one sequence of 2 results": 1,
+   "results [0, 1]": 1,
+   "results [1, 0]": 1,
+   "results [1]": 1
+  }
+ },
+ "ours@haiku-4-5": {
+  "records": 159,
+  "accepted_records": 139,
+  "strict": 139,
+  "bypass": 0,
+  "accepted": 139,
+  "proof": {
+   "correct": 112,
+   "not-shown": 27
+  },
+  "tests_on_valid": {
+   "pass": 63,
+   "fail": 1
+  },
+  "n_test_valid": 64,
+  "contract_context": 1,
+  "mapped": {
+   "results [0, 1]": 4
+  }
+ },
+ "baseline@gpt-4o": {
+  "records": 228,
+  "accepted_records": 100,
+  "strict": 100,
+  "bypass": 0,
+  "accepted": 100,
+  "proof": {
+   "not-shown": 20,
+   "correct": 76,
+   "interface": 4
+  },
+  "tests_on_valid": {
+   "pass": 45,
+   "norun": 3,
+   "fail": 1
+  },
+  "n_test_valid": 49,
+  "contract_context": 1,
+  "mapped": {
+   "one sequence of 2 results": 1,
+   "results [1]": 1
+  }
+ },
+ "ours@gpt-4o": {
+  "records": 159,
+  "accepted_records": 122,
+  "strict": 122,
+  "bypass": 0,
+  "accepted": 122,
+  "proof": {
+   "correct": 94,
+   "not-shown": 28
+  },
+  "tests_on_valid": {
+   "pass": 49,
+   "fail": 4,
+   "crash": 1
+  },
+  "n_test_valid": 54,
+  "contract_context": 0,
+  "mapped": {
+   "results [0, 1]": 3
+  }
+ },
+ "baseline@sonnet-4-6": {
+  "records": 228,
+  "accepted_records": 147,
+  "strict": 147,
+  "bypass": 0,
+  "accepted": 147,
+  "proof": {
+   "correct": 100,
+   "interface": 6,
+   "not-shown": 41
+  },
+  "tests_on_valid": {
+   "pass": 62,
+   "norun": 4,
+   "fail": 1
+  },
+  "n_test_valid": 67,
+  "contract_context": 1,
+  "mapped": {
+   "results [0, 1]": 1,
+   "one sequence of 2 results": 1,
+   "results [1, 0]": 1
+  }
+ },
+ "ours@sonnet-4-6": {
+  "records": 159,
+  "accepted_records": 153,
+  "strict": 153,
+  "bypass": 3,
+  "accepted": 150,
+  "proof": {
+   "not-shown": 35,
+   "correct": 115
+  },
+  "tests_on_valid": {
+   "pass": 69,
+   "fail": 3
+  },
+  "n_test_valid": 72,
+  "contract_context": 1,
+  "mapped": {
+   "results [0, 1]": 4
+  }
+ },
+ "paired_ours@haiku-4-5": {
+  "ours_only": 30,
+  "baseline_only": 10,
+  "p": 0.0022214337732293643,
+  "ours": 112,
+  "baseline": 92
+ },
+ "paired_ours@gpt-4o": {
+  "ours_only": 26,
+  "baseline_only": 8,
+  "p": 0.0029350556433200836,
+  "ours": 94,
+  "baseline": 76
+ },
+ "paired_ours@sonnet-4-6": {
+  "ours_only": 23,
+  "baseline_only": 8,
+  "p": 0.010673840530216694,
+  "ours": 115,
+  "baseline": 100
+ },
+ "baseline@gpt-5-mini": {
+  "records": 228,
+  "accepted_records": 123,
+  "strict": 123,
+  "bypass": 0,
+  "accepted": 123,
+  "proof": {
+   "correct": 89,
+   "interface": 6,
+   "not-shown": 28
+  },
+  "tests_on_valid": {
+   "norun": 4,
+   "pass": 54
+  },
+  "n_test_valid": 58,
+  "contract_context": 1,
+  "mapped": {
+   "results [0, 1]": 1,
+   "one sequence of 2 results": 1,
+   "results [1, 0]": 1
+  }
+ },
+ "ours@gpt-5-mini": {
+  "records": 159,
+  "accepted_records": 134,
+  "strict": 134,
+  "bypass": 3,
+  "accepted": 131,
+  "proof": {
+   "correct": 104,
+   "not-shown": 27
+  },
+  "tests_on_valid": {
+   "pass": 62
+  },
+  "n_test_valid": 62,
+  "contract_context": 0,
+  "mapped": {
+   "results [0, 1]": 4
+  }
+ },
+ "paired_ours@gpt-5-mini": {
+  "ours_only": 24,
+  "baseline_only": 9,
+  "p": 0.013530986849218607,
+  "ours": 104,
+  "baseline": 89
+ }
+}

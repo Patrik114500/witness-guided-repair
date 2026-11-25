@@ -1,0 +1,360 @@
+{
+ "common": 4500,
+ "correct": 3627,
+ "not_shown": 873,
+ "models": 11,
+ "tasks": 568,
+ "by_source": {
+  "big run": 2625,
+  "end-to-end": 1875
+ },
+ "pool_e2e": 1875,
+ "rules": {
+  "LLM judge|replace": {
+   "changes": 775,
+   "stays_correct": 535,
+   "broken": 29,
+   "broken_undecided": 2,
+   "repaired": 34,
+   "still_not_shown": 177
+  },
+  "LLM judge|add": {
+   "changes": 695,
+   "stays_correct": 545,
+   "broken": 0,
+   "broken_undecided": 0,
+   "repaired": 28,
+   "still_not_shown": 122
+  },
+  "determinacy rewrite|replace": {
+   "changes": 672,
+   "stays_correct": 542,
+   "broken": 8,
+   "broken_undecided": 2,
+   "repaired": 45,
+   "still_not_shown": 77
+  },
+  "determinacy rewrite|add": {
+   "changes": 651,
+   "stays_correct": 541,
+   "broken": 0,
+   "broken_undecided": 0,
+   "repaired": 46,
+   "still_not_shown": 64
+  },
+  "mined invariants|replace": {
+   "changes": 85,
+   "stays_correct": 63,
+   "broken": 0,
+   "broken_undecided": 0,
+   "repaired": 4,
+   "still_not_shown": 18
+  },
+  "mined invariants|add": {
+   "changes": 76,
+   "stays_correct": 56,
+   "broken": 0,
+   "broken_undecided": 0,
+   "repaired": 4,
+   "still_not_shown": 16
+  },
+  "witness-guided|add": {
+   "changes": 313,
+   "stays_correct": 205,
+   "broken": 0,
+   "broken_undecided": 0,
+   "repaired": 51,
+   "still_not_shown": 57
+  },
+  "all four proposers|add": {
+   "changes": 1370,
+   "stays_correct": 1086,
+   "broken": 0,
+   "broken_undecided": 0,
+   "repaired": 75,
+   "still_not_shown": 209
+  }
+ },
+ "parts": {
+  "big run": {
+   "accepts": 2625,
+   "correct": 2012,
+   "rules": {
+    "LLM judge|replace": {
+     "changes": 533,
+     "stays_correct": 326,
+     "broken": 23,
+     "broken_undecided": 1,
+     "repaired": 25,
+     "still_not_shown": 159
+    },
+    "LLM judge|add": {
+     "changes": 457,
+     "stays_correct": 330,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 19,
+     "still_not_shown": 108
+    },
+    "determinacy rewrite|replace": {
+     "changes": 442,
+     "stays_correct": 328,
+     "broken": 6,
+     "broken_undecided": 0,
+     "repaired": 35,
+     "still_not_shown": 73
+    },
+    "determinacy rewrite|add": {
+     "changes": 419,
+     "stays_correct": 324,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 36,
+     "still_not_shown": 59
+    },
+    "mined invariants|replace": {
+     "changes": 67,
+     "stays_correct": 45,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 4,
+     "still_not_shown": 18
+    },
+    "mined invariants|add": {
+     "changes": 58,
+     "stays_correct": 38,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 4,
+     "still_not_shown": 16
+    },
+    "witness-guided|add": {
+     "changes": 185,
+     "stays_correct": 118,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 30,
+     "still_not_shown": 37
+    },
+    "all four proposers|add": {
+     "changes": 871,
+     "stays_correct": 648,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 50,
+     "still_not_shown": 173
+    }
+   }
+  },
+  "end-to-end": {
+   "accepts": 1875,
+   "correct": 1615,
+   "rules": {
+    "LLM judge|replace": {
+     "changes": 242,
+     "stays_correct": 209,
+     "broken": 6,
+     "broken_undecided": 1,
+     "repaired": 9,
+     "still_not_shown": 18
+    },
+    "LLM judge|add": {
+     "changes": 238,
+     "stays_correct": 215,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 9,
+     "still_not_shown": 14
+    },
+    "determinacy rewrite|replace": {
+     "changes": 230,
+     "stays_correct": 214,
+     "broken": 2,
+     "broken_undecided": 2,
+     "repaired": 10,
+     "still_not_shown": 4
+    },
+    "determinacy rewrite|add": {
+     "changes": 232,
+     "stays_correct": 217,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 10,
+     "still_not_shown": 5
+    },
+    "mined invariants|replace": {
+     "changes": 18,
+     "stays_correct": 18,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 0,
+     "still_not_shown": 0
+    },
+    "mined invariants|add": {
+     "changes": 18,
+     "stays_correct": 18,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 0,
+     "still_not_shown": 0
+    },
+    "witness-guided|add": {
+     "changes": 128,
+     "stays_correct": 87,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 21,
+     "still_not_shown": 20
+    },
+    "all four proposers|add": {
+     "changes": 499,
+     "stays_correct": 438,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 25,
+     "still_not_shown": 36
+    }
+   }
+  },
+  "CloverBench": {
+   "accepts": 857,
+   "correct": 833,
+   "rules": {
+    "LLM judge|replace": {
+     "changes": 128,
+     "stays_correct": 118,
+     "broken": 3,
+     "broken_undecided": 1,
+     "repaired": 6,
+     "still_not_shown": 1
+    },
+    "LLM judge|add": {
+     "changes": 128,
+     "stays_correct": 121,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 6,
+     "still_not_shown": 1
+    },
+    "determinacy rewrite|replace": {
+     "changes": 178,
+     "stays_correct": 168,
+     "broken": 1,
+     "broken_undecided": 1,
+     "repaired": 9,
+     "still_not_shown": 0
+    },
+    "determinacy rewrite|add": {
+     "changes": 179,
+     "stays_correct": 170,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 9,
+     "still_not_shown": 0
+    },
+    "mined invariants|replace": {
+     "changes": 8,
+     "stays_correct": 8,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 0,
+     "still_not_shown": 0
+    },
+    "mined invariants|add": {
+     "changes": 8,
+     "stays_correct": 8,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 0,
+     "still_not_shown": 0
+    },
+    "witness-guided|add": {
+     "changes": 64,
+     "stays_correct": 46,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 15,
+     "still_not_shown": 3
+    },
+    "all four proposers|add": {
+     "changes": 295,
+     "stays_correct": 276,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 16,
+     "still_not_shown": 3
+    }
+   }
+  },
+  "MBPP-DFY": {
+   "accepts": 1018,
+   "correct": 782,
+   "rules": {
+    "LLM judge|replace": {
+     "changes": 114,
+     "stays_correct": 91,
+     "broken": 3,
+     "broken_undecided": 0,
+     "repaired": 3,
+     "still_not_shown": 17
+    },
+    "LLM judge|add": {
+     "changes": 110,
+     "stays_correct": 94,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 3,
+     "still_not_shown": 13
+    },
+    "determinacy rewrite|replace": {
+     "changes": 52,
+     "stays_correct": 46,
+     "broken": 1,
+     "broken_undecided": 1,
+     "repaired": 1,
+     "still_not_shown": 4
+    },
+    "determinacy rewrite|add": {
+     "changes": 53,
+     "stays_correct": 47,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 1,
+     "still_not_shown": 5
+    },
+    "mined invariants|replace": {
+     "changes": 10,
+     "stays_correct": 10,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 0,
+     "still_not_shown": 0
+    },
+    "mined invariants|add": {
+     "changes": 10,
+     "stays_correct": 10,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 0,
+     "still_not_shown": 0
+    },
+    "witness-guided|add": {
+     "changes": 64,
+     "stays_correct": 41,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 6,
+     "still_not_shown": 17
+    },
+    "all four proposers|add": {
+     "changes": 204,
+     "stays_correct": 162,
+     "broken": 0,
+     "broken_undecided": 0,
+     "repaired": 9,
+     "still_not_shown": 33
+    }
+   }
+  }
+ }
+}

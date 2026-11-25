@@ -1,10 +1,11 @@
-# Offline analysis + figures (reproducing the paper's numbers needs only these)
-matplotlib>=3.7
-numpy>=1.24
+# paper_numbers.py needs only the Python standard library.
+
+# figures/: this version reproduces the figures of the paper pixel for pixel
+matplotlib==3.10.9
+
+# pipeline/: the task files of the vericoding benchmark are YAML
 pyyaml>=6.0
 
-# Re-running the pipeline additionally needs, outside pip:
-#   - Dafny 4.x + Z3            (set DAFNY=...)
-#   - the vericoding benchmark  (set BENCH=...)
-#   - a model backend           (Azure OpenAI / Ollama / Gemini via env, see README)
-#   - for cross-language runs: a `verus` binary (+ rustup) and a Lean 4 `elan` toolchain
+# Running the experiments also needs, outside pip (see pipeline/README.md):
+#   Dafny 4.x with Z3, the benchmark repositories, access to the models,
+#   and for the Verus and Lean runs a verus binary and a Lean 4 toolchain.

@@ -1,121 +1,106 @@
-# Witness-guided specification repair for trustworthy LLM vericoding
+# Acceptance is not correctness: witness-guided specification repair for trustworthy LLM vericoding
 
-Code and data accompanying the ESANN 2027 submission
-**"Witness-guided specification repair for trustworthy LLM vericoding"**
-(Pánczél, Kárász, Gulyás — Eötvös Loránd University).
+Code, prompts and results of the paper with this title by Patrik Pánczél, Zoltán Kárász and László Gulyás,
+submitted to ESANN 2027 and under review.
 
-In verified code generation a language model writes both the formal specification
-and the program, and verifier acceptance is reported as success. We show that a
-third of accepted Dafny solutions satisfy a specification that misses the intended
-behaviour, that a single solver *determinacy* query flags these weak specifications
-far better than an LLM judge, that every flag-driven repair arm is net-harmful, and
-that **witness-guided repair** is the only arm with zero regressions. The paper PDF is
-in [`paper/`](paper/).
+A language model can write a Dafny program together with its formal specification, and the verifier then
+proves that the two agree. Such an accept is usually counted as success, although the proof is only as
+trustworthy as the specification that the model wrote. The paper measures how often an accept is correct
+when the model-written postcondition S is judged against the benchmark's reference postcondition G, which the
+model never sees: an accept is correct when the verifier proves S ⇒ G. For eleven models, 6 to 20% of a
+model's accepts on the tasks with a natural-language description are not shown correct, and this share is
+larger for the models with more accepts. The paper then compares ways to repair a specification that looks
+too weak. In the experiments, repairs that rewrite the specification also break correct ones. Witness-guided
+repair looks for a witness, an input on which S admits two different outputs, lets a model write a clause C
+that excludes the unintended output, and keeps S ∧ C only if a body verifies under it. Since S ∧ C implies S,
+a correct specification stays correct.
 
-> **Snapshot notice.** The numbers here are a running snapshot (the headline corpus is
-> `results/dafny_results_snapshot.jsonl.gz`, 3511 deduplicated runs at the time of
-> freezing). Regenerating from this file reproduces the figures and the reported
-> numbers exactly; re-running the pipeline against live models will differ by model
-> version and sampling.
+This repository holds what stands behind the numbers and the figures of the paper.
 
-## What is in here
+| path | content |
+|---|---|
+| `results/` | the frozen outputs of the experiments, described in `results/README.md` |
+| `paper_numbers.py` | recomputes every reported number of the paper from `results/` and compares it with the printed value |
+| `figures/` | the scripts of the four figures and the images they produce |
+| `pipeline/` | the experiment code with its prompts, described in `pipeline/README.md` |
 
-```
-paper/       the submission (LaTeX source, esannV2 class, figures, compiled PDF)
-src/         the instrumented vericoding harness (self-contained Dafny pipeline)
-figures/     figure-generation scripts + the aggregated cell data (cells.json)
-results/     frozen result snapshots the paper's numbers are computed from
-  dafny_results_snapshot.jsonl.gz   main corpus (9 models x 3 Dafny families)
-  cloverbench_gpt4o.jsonl           our loop on CloverBench (Sec. "Against published pipelines")
-  mbpp_ours2.jsonl, mbpp_tests_post.jsonl   our loop on MBPP-DFY
-  crosslang/                        Verus + Lean follow-up runs (given-spec and self-spec)
-```
+## Checking the numbers
 
-## Reproducing the paper's numbers (no GPU, no API keys)
-
-The headline numbers are derived offline from the frozen snapshot.
+No model, no verifier and no package beyond the Python standard library is needed.
 
 ```bash
-pip install -r requirements.txt
-cd results && gunzip -k dafny_results_snapshot.jsonl.gz && cd ..
-
-# per-model acceptance/reliability, signal F1s, repair-arm deltas, non-det confound:
-python src/paper_numbers.py          # reads /tmp/big_run_*.jsonl by default; see note below
-
-# regenerate the figures from the aggregated cells:
-cd figures && python fig23_split.py   # writes fig23a_results.png, fig23b_results.png
+python paper_numbers.py
 ```
 
-`paper_numbers.py` globs `/tmp/big_run_*.jsonl`; point it at
-`results/dafny_results_snapshot.jsonl` (copy it there, or edit the glob) to run against the
-frozen corpus. `figures/fig23_split.py` reads `figures/cells.json` (the aggregated
-model x benchmark table) and needs no raw data.
+The script prints one line for each number of the paper, in the order of the sections, with `ok` when the
+value computed from `results/` equals the printed one and `DIFF` otherwise. It ends with
+`All numbers agree with the paper.` and returns exit code 1 if any number differs. A few lines of its output:
 
-## Re-running the pipeline from scratch
+```
+Sections 2.3 and 3.1, Fig. 2: acceptance against correctness (results/gen_audit.jsonl, desc_len.json)
+  ...
+  ok   smallest share of a model's accepts that are not shown correct, %              6 (6.5)
+  ok   largest share of a model's accepts that are not shown correct, %               20 (20.3)
+  ...
+  ok   Spearman rho, accepts against correct share                                    -0.72 (-0.7182)
+  ok   its permutation p-value                                                        0.015 (0.0154)
+```
 
-You need the **vericoding benchmark**, a **Dafny** toolchain, and at least one model backend.
+The numbers of experiment 1 and of the audit of the given specifications are recomputed from one record per
+accept or per specification, including the correlations, the permutation p-values and the bootstrap interval
+(with fixed seeds, so the output is the same on every run). The numbers of experiments 2 and 3 are derived
+from the counts per repair and the task lists per model that the experiment scripts wrote. The script was
+run with Python 3.11, 3.12 and 3.13.
 
-1. **Benchmark.** Clone the Dafny families used as the corpus:
-   `git clone https://github.com/Beneficial-AI-Foundation/vericoding` and set
-   `BENCH=/path/to/vericoding/benchmarks/dafny`. (The Verus and Lean subsets of the
-   same benchmark drive the cross-language runs.)
-2. **Dafny.** Install Dafny 4.x + Z3 and set `DAFNY=/path/to/dafny`.
-3. **Models.** The harness talks to:
-   - **Azure OpenAI / AI Foundry** — set `AZ_EP=https://<your-endpoint>` and
-     `AZURE_API_KEY=...` (or put the key in `~/.azure_openai_key`). Claude models on
-     Foundry use the Anthropic Messages route; GPT models the OpenAI route.
-   - **Local open-weight models** via an Ollama-compatible server — set
-     `OLLAMA=http://localhost:11434/v1/chat/completions`.
-   - **Gemini** (optional) — `GEMINI_API_KEY` or `~/.gemini_key`.
-   No endpoints or keys are baked in; everything is read from the environment.
-4. **Run.** `MODELS=... SOURCES=numpy_simple,verina,verified_cogen OUT=/tmp/run.jsonl python src/big_run.py`
-   produces, per task, the NL→spec→code→verify loop (ITERS rounds), the five
-   answer-key-free signals, the three held-out oracles, the repair arms, and the
-   witness arm. `src/witness_repair.py` is the witness arm; `src/valuecore.py` the
-   non-determinism-aware oracle; `src/paper_numbers.py` aggregates.
+## Redrawing the figures
 
-### Comparisons against published pipelines
+```bash
+pip install matplotlib==3.10.9
+python figures/fig1_pipeline.py      # Fig. 1, the pipeline (no data)
+python figures/fig2_reliability.py   # Fig. 2, from results/bigrun_v7_described.json
+python figures/fig3_repair.py        # Fig. 3, from results/repair_funnel_ext.json
+python figures/fig4_endtoend.py      # Fig. 4, from results/e2e_fig3.json
+```
 
-- **CloverBench** (`results/cloverbench_gpt4o.jsonl`): our loop vs Clover's consistency
-  gate on the same gpt-4o. Clover itself is at `github.com/ChuyueSun/Clover`; the gate
-  wrapper used here lives in that checkout.
-- **MBPP-DFY** (`results/mbpp_ours2.jsonl` + `_tests_post`): `src/mbpp_ours.py`, compared
-  against the figures reported by Misu et al. (FSE 2024, `github.com/Mondego/dafny-synthesis`).
+Each script writes a PNG of the same name into `figures/` at 600 dpi. With matplotlib 3.10.9 the four images
+are identical, pixel for pixel, to the figures of the submitted paper. Other versions of matplotlib were not
+tested. `python figures/fig2_reliability.py all` draws the variant of Fig. 2 for all 378 tasks, which the
+paper reports only in the text.
 
-### Cross-language follow-up (Verus + Lean)
+## Running the experiments again
 
-`src/xlang_bench.py` (given-spec: implement a fixed specification), `src/verus_demo.py`
-and `src/lean_selfspec.py` (self-spec: the model writes its own specification) run the
-same acceptance / weak-specification lens in Verus (needs a `verus` binary + rustup) and
-Lean 4 (needs an `elan`/`lean` toolchain). Frozen outputs are in `results/crosslang/`.
+`pipeline/` contains the scripts that produced the results, as they were run, and `pipeline/README.md` says
+which script belongs to which experiment, where each prompt is, and what a run needs: Dafny, the benchmark
+repositories, and access to the models through environment variables. No endpoint and no key is stored in
+the code. A new run needs model calls and a long verification time, and it will not give exactly the frozen
+counts, because the models are sampled and hosted models change.
 
-## Headline results on the frozen snapshot
+## What this snapshot does not contain
 
-(From `results/dafny_results_snapshot.jsonl.gz`. The compiled PDF reports a
-marginally earlier freeze of the same running corpus, so its counts differ
-slightly; both converge in the camera-ready version.)
+The raw records of the runs, that is every prompt with its response, every accepted program and every
+verifier output, are not included. The runner of the DafnyBench annotation comparison in Section 3.1 is not
+included either, and its counts are in `results/given_spec_step2.json`. The benchmarks themselves are not
+part of this repository. They are available from their authors: the vericoding benchmark
+(https://github.com/Beneficial-AI-Foundation/vericoding), Clover and CloverBench
+(https://github.com/ChuyueSun/Clover), MBPP-DFY and dafny-synthesis
+(https://github.com/Mondego/dafny-synthesis) and DafnyBench (https://github.com/sun-wendy/DafnyBench).
 
-| | value |
-|---|---|
-| deduplicated runs / oracle-evaluated acceptances | 3511 / ~1875 |
-| accepted solutions that do **not** entail the intent | ~34% |
-| best model acceptance vs reliability (opus-5-5) | 98% accept, 65% reliable |
-| determinacy signal F1 (vs LLM judge) | 0.78 vs 0.41 |
-| repair arms, net reliability change | invariant −48, judge −104, determinacy −26 |
-| **witness-guided repair** | 57 activations, 3 repaired, **0 broken** |
-| vs Clover (gpt-4o, CloverBench) | both ~94–95% reliable; our loop accepts 50% more |
-| vs Misu GPT-4 (MBPP-DFY) | our budget model verifies 74% vs their 58% |
+## Third-party material
+
+Three files carry material of the vericoding benchmark, which is released under the MIT License (reproduced in
+`third_party/vericoding-LICENSE.txt`). The audit records `results/given_audit.jsonl` and
+`results/given_audit_more.jsonl` quote the precondition and the postcondition of each audited task, and
+`pipeline/fix_cheat.py` restates the bypass rules of its pipeline.
 
 ## Citation
 
 ```bibtex
-@inproceedings{panczel2027witness,
-  title     = {Witness-guided specification repair for trustworthy LLM vericoding},
-  author    = {P{\'a}ncz{\'e}l, Patrik and K{\'a}r{\'a}sz, Zolt{\'a}n and Guly{\'a}s, L{\'a}szl{\'o}},
-  booktitle = {European Symposium on Artificial Neural Networks (ESANN)},
-  year      = {2027}
+@unpublished{panczel2026acceptance,
+  title  = {Acceptance is not correctness: witness-guided specification repair for trustworthy {LLM} vericoding},
+  author = {P{\'a}ncz{\'e}l, Patrik and K{\'a}r{\'a}sz, Zolt{\'a}n and Guly{\'a}s, L{\'a}szl{\'o}},
+  note   = {Submitted to ESANN 2027},
+  year   = {2026}
 }
 ```
 
-Released under the MIT License (see [`LICENSE`](LICENSE)). This is research code; it is
-organised for reproducibility of the paper, not as a packaged library.
+The code is released under the MIT License, see `LICENSE`.
