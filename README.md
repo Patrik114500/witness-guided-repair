@@ -22,7 +22,9 @@ This repository holds what stands behind the numbers and the figures of the pape
 | `results/` | the frozen outputs of the experiments, described in `results/README.md` |
 | `paper_numbers.py` | recomputes every reported number of the paper from `results/` and compares it with the printed value |
 | `figures/` | the scripts of the four figures and the images they produce |
-| `pipeline/` | the experiment code with its prompts, described in `pipeline/README.md` |
+| `pipeline/` | the experiment code, described in `pipeline/README.md` |
+| `prompts/` | every prompt behind a reported number, word for word, in six files written from the code (see `prompts/README.md`) |
+| `tasks/` | the task lists of the experiments (see `tasks/README.md`) |
 
 ## Checking the numbers
 
@@ -70,17 +72,29 @@ paper reports only in the text.
 ## Running the experiments again
 
 `pipeline/` contains the scripts that produced the results, as they were run, and `pipeline/README.md` says
-which script belongs to which experiment, where each prompt is, and what a run needs: Dafny, the benchmark
-repositories, and access to the models through environment variables. No endpoint and no key is stored in
-the code. A new run needs model calls and a long verification time, and it will not give exactly the frozen
-counts, because the models are sampled and hosted models change.
+which script belongs to which experiment, where each prompt is, which sampling settings the model calls use,
+and what a run needs: Dafny, the benchmark repositories, and access to the models through environment
+variables. No endpoint and no key is stored in the code. A new run needs model calls and a long verification
+time, and it will not give exactly the frozen counts, because the models are sampled and hosted models change.
+
+## Prompts and tasks
+
+`prompts/` holds the prompts of the three steps and of the compared repairs, and `tasks/` lists the tasks of
+each experiment. Both folders can be checked against the code and the frozen results without a model and
+without a verifier.
+
+```bash
+python prompts/make_prompts.py --check    # the prompt files equal the text in pipeline/
+python prompts/test_prompts.py            # the prompts that the code sends equal the prompt files (needs pyyaml)
+python tasks/make_task_lists.py --check   # the task lists agree with results/
+```
 
 ## What this snapshot does not contain
 
-The raw records of the runs, that is every prompt with its response, every accepted program and every
-verifier output, are not included. The runner of the DafnyBench annotation comparison in Section 3.1 is not
-included either, and its counts are in `results/given_spec_step2.json`. The benchmarks themselves are not
-part of this repository. They are available from their authors: the vericoding benchmark
+The raw records of the runs, that is every prompt with its response, every accepted program and every verifier
+output, are not included. The runner of the DafnyBench annotation comparison in Section 3.1 and the lists of
+its tasks are not included either, and its counts are in `results/given_spec_step2.json`. The benchmarks
+themselves are not part of this repository. They are available from their authors: the vericoding benchmark
 (https://github.com/Beneficial-AI-Foundation/vericoding), Clover and CloverBench
 (https://github.com/ChuyueSun/Clover), MBPP-DFY and dafny-synthesis
 (https://github.com/Mondego/dafny-synthesis) and DafnyBench (https://github.com/sun-wendy/DafnyBench).

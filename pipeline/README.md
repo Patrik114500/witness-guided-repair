@@ -3,8 +3,9 @@
 These are the scripts that produced the results of the paper, as they were run. They are research code: each
 script is one stage of an experiment, reads the outputs of earlier stages and writes its own, and the parameters
 are environment variables read at the top of the file. The prompts are part of the code, at the places named
-below. Nothing in this folder is needed to check the numbers or to redraw the figures, which work from the
-frozen files in `../results` (see the top-level README).
+below, and `../prompts` holds them word for word in six files. `../tasks` lists the tasks of each experiment.
+Nothing in this folder is needed to check the numbers or to redraw the figures, which work from the frozen
+files in `../results` (see the top-level README).
 
 ## What the scripts expect
 
@@ -34,12 +35,32 @@ export CLOSED_PROXY=http://proxy:port                         # optional HTTP pr
 ```
 
 Clover's generators call their model through the `sglang` frontend. `sglang_shim_clover.py` is a small stand-in
-that sends those calls to the same endpoint as ours, so that both pipelines use the same model. The scripts
-import it as `sglang` from `~/clover/shim`, so it has to be copied there as `sglang.py`.
+for that frontend, so that Clover's own generators run on the model of the comparison. The scripts import it as
+`sglang` from `~/clover/shim`, so it has to be copied there as `sglang.py`. The copy in this snapshot posts
+every call to the OpenAI-compatible endpoint named by `SHIM_CHAT_URL`, which is how the local models are
+reached. How the calls reached the hosted models of experiment 3 on the experiment machine is not recorded in
+this snapshot.
 
 Intermediate outputs are JSON-lines files under `/tmp` (for example `/tmp/big_run*.jsonl`,
 `/tmp/fix_scores5.jsonl`, `/tmp/wit2_<model>.jsonl`). Each script names its inputs and outputs in its
 docstring. Most scripts can be resumed: they skip the records that the output file already holds.
+
+## Sampling settings
+
+Every call of our pipeline is a single user message without a system prompt, and no script sets a random seed.
+The temperature depends on the provider and on the script.
+
+| calls | temperature |
+|---|---|
+| hosted models through `vericode_compete.ask` and `fix_harness.Asker`: experiments 1 and 2, the given-specification runs and our pipeline on CloverBench | none is sent, so each model runs at the default of its provider |
+| local models, of the eleven models of experiment 1 `qwen2.5-coder:32b` and `gpt-oss:20b` | 0.3 |
+| our pipeline on MBPP-DFY (`mbpp_boost.py`) with a Claude model | 0.3 for the first candidate postcondition, 0.8 for candidates 2 to 5, and 0.3 for the corrective call, the code loop and the fallback postcondition |
+| our pipeline on MBPP-DFY with an Azure OpenAI model | none is sent |
+| the reproduction of dafny-synthesis (`mbpp_repro.py`) | 0.75, the value of the published pipeline. `run_mbpp_m.sh` sets `NO_TEMP=1` for the reasoning models (`aoai:gpt-5*`, `aoai:gpt-6*`, `aoai:o*`), which accept only their default, so none is sent to gpt-5-mini. |
+| Clover's generators through the copy of `sglang_shim_clover.py` in this snapshot | the value that Clover's own call sets, and 0.3 where it sets none |
+
+In our calls the response limit of a hosted model is 10000 tokens, and 32000 for `aoai:gpt-5` and
+`aoai:gpt-5-mini` in the calls through `fix_harness.Asker`. No limit is sent to the local models.
 
 ## Names in the code and names in the paper
 
@@ -142,6 +163,6 @@ Experiment 3 runs the two benchmarks per model and pipeline, scores them with `c
 named in the tables from `/tmp` into `../results` then lets `../paper_numbers.py` and the figure scripts read
 the new run.
 
-A new run will not give the same counts as the frozen ones. The models are sampled at temperature 0.3, hosted
-models change over time, and a proof that finishes within the time limit on one machine can time out on
-another.
+A new run will not give the same counts as the frozen ones. The models are sampled (see the sampling settings
+above), hosted models change over time, and a proof that finishes within the time limit on one machine can time
+out on another.
